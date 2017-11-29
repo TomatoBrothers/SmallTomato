@@ -1,0 +1,57 @@
+body {
+  background: url("../icons/background1.jpg") no-repeat;
+  background-size:cover;
+  animation-name:myfirst;
+  animation-duration:12s;
+  /*变换时间*/
+  animation-delay:2s;
+  /*动画开始时间*/
+  animation-iteration-count:infinite;
+  /*下一周期循环播放*/
+  animation-play-state:running;
+  /*动画开始运行*/
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.login-tit{width:300px;margin:0 auto;font-size:25px;color:#333;text-align:center;line-height:85px}
+@keyframes myfirst
+{
+  25%  {background:url("../icons/background2.jpg");background-size:cover;}
+  50%  {background:url("../icons/background3.jpg");background-size:cover;}
+  75%  {background:url("../icons/background4.jpg");background-size:cover;}
+}
+/*表格阴影*/
+.form{background: rgba(255,255,255,0.4);}
