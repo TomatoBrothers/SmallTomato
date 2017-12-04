@@ -1,5 +1,7 @@
 package com.smalltomato.controller;
 
+import com.smalltomato.service.StockListService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("main")
 public class MainController {
+
+    @Autowired
+    private StockListService stockListService;
 
     @RequestMapping("/index")
     public String login() {
