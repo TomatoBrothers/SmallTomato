@@ -3,6 +3,7 @@
 <mapper namespace="com.smalltomato.dao.StockListMapper">
   <resultMap id="BaseResultMap" type="com.smalltomato.bean.StockList">
     <id column="stock_code" jdbcType="VARCHAR" property="stockCode" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="stock_name" jdbcType="VARCHAR" property="stockName" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -64,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    stock_code, stock_name
+    stock_code, id, stock_name
   </sql>
   <select id="selectByExample" parameterType="com.smalltomato.bean.StockListExample" resultMap="BaseResultMap">
     select
@@ -80,15 +81,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="com.smalltomato.bean.StockListKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from stock_list
     where stock_code = #{stockCode,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="com.smalltomato.bean.StockListKey">
     delete from stock_list
     where stock_code = #{stockCode,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.smalltomato.bean.StockListExample">
     delete from stock_list
@@ -97,14 +100,19 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.smalltomato.bean.StockList">
-    insert into stock_list (stock_code, stock_name)
-    values (#{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR})
+    insert into stock_list (stock_code, id, stock_name
+      )
+    values (#{stockCode,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{stockName,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.smalltomato.bean.StockList">
     insert into stock_list
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="stockCode != null">
         stock_code,
+      </if>
+      <if test="id != null">
+        id,
       </if>
       <if test="stockName != null">
         stock_name,
@@ -113,6 +121,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="stockCode != null">
         #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="stockName != null">
         #{stockName,jdbcType=VARCHAR},
@@ -131,6 +142,9 @@
       <if test="record.stockCode != null">
         stock_code = #{record.stockCode,jdbcType=VARCHAR},
       </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.stockName != null">
         stock_name = #{record.stockName,jdbcType=VARCHAR},
       </if>
@@ -142,6 +156,7 @@
   <update id="updateByExample" parameterType="map">
     update stock_list
     set stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=INTEGER},
       stock_name = #{record.stockName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,10 +170,12 @@
       </if>
     </set>
     where stock_code = #{stockCode,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.smalltomato.bean.StockList">
     update stock_list
     set stock_name = #{stockName,jdbcType=VARCHAR}
     where stock_code = #{stockCode,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

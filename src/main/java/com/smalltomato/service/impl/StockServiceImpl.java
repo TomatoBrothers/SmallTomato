@@ -12,12 +12,11 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author WangShiChong
- * @ Create Time: 2017/12/4/0004 22:47
+ * @ Create Time: 2017/12/4/0004 23:49
  */
 @Service("stockService")
 public class StockServiceImpl extends BaseServiceImpl<Stock, StockExample, StockKey>
         implements StockService {
-
     @Autowired
     private StockMapper stockMapper;
 
