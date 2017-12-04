@@ -20,6 +20,6 @@ public class StockListServiceImpl extends BaseServiceImpl<StockList, StockListEx
     private StockListMapper stockListMapper;
 
     public BaseDao<StockList, StockListExample, String> getDao() {
-        return null;
+        return stockListMapper;
     }
 }
