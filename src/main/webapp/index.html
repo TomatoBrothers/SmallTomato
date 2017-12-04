@@ -1,38 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <!--设置页面编码格式-->
-    <meta charset="utf-8">
-    <!--以下代码告诉IE浏览器，IE8/9及以后的版本都会以最高版本IE来渲染页面-->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--显示窗口(viewport)宽度是客户端的屏幕宽度(满屏)，显示的文字和图形的初始比例是1-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <!--设置页面标题-->
+    <link rel="import" href="statics/commonhtml/head.html">
     <title>小番茄登录界面</title>
-    <!--设置标签页小图标-->
-    <link rel="icon" href="./statics/icons/tomato1.ico">
-    <link href="./statics/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="./statics/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
+    <!-- 登录页css样式-->
     <link href="./statics/css/index.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script type="text/javascript">
         // 页面加载时预加载图片
         var images = new Array()
-
         function preload() {
             for (var i = 0; i < preload.arguments.length; i++) {
                 images[i] = new Image();
                 images[i].src = preload.arguments[i];
             }
         }
-
         preload(
             "./statics/icons/background1.jpg",
             "./statics/icons/background2.jpg",

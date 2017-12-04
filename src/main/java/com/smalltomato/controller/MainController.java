@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("main")
 public class MainController {
 
-    @RequestMapping("/login")
+    @RequestMapping("/index")
     public String login() {
         System.out.println("程序到此一游！");
-        return "/login";
+        return "/index";
     }
 
 }
