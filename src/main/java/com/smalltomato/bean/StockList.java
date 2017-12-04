@@ -1,17 +1,7 @@
 package com.smalltomato.bean;
 
-public class StockList {
-    private String stockCode;
-
+public class StockList extends StockListKey {
     private String stockName;
-
-    public String getStockCode() {
-        return stockCode;
-    }
-
-    public void setStockCode(String stockCode) {
-        this.stockCode = stockCode == null ? null : stockCode.trim();
-    }
 
     public String getStockName() {
         return stockName;

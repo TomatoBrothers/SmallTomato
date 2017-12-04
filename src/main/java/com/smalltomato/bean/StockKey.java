@@ -5,6 +5,8 @@ public class StockKey {
 
     private String date;
 
+    private Integer id;
+
     public String getCode() {
         return code;
     }
@@ -19,5 +21,13 @@ public class StockKey {
 
     public void setDate(String date) {
         this.date = date == null ? null : date.trim();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
