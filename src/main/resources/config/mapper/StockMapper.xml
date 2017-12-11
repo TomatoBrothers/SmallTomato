@@ -2,9 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smalltomato.dao.StockMapper">
   <resultMap id="BaseResultMap" type="com.smalltomato.bean.Stock">
-    <id column="code" jdbcType="VARCHAR" property="code" />
-    <id column="date" jdbcType="VARCHAR" property="date" />
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="opening" jdbcType="VARCHAR" property="opening" />
     <result column="yesterday_close" jdbcType="VARCHAR" property="yesterdayClose" />
@@ -32,6 +31,7 @@
     <result column="sell_three_price" jdbcType="VARCHAR" property="sellThreePrice" />
     <result column="sell_four_price" jdbcType="VARCHAR" property="sellFourPrice" />
     <result column="sell_five_price" jdbcType="VARCHAR" property="sellFivePrice" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
     <result column="time" jdbcType="VARCHAR" property="time" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
@@ -94,11 +94,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    code, date, id, name, opening, yesterday_close, highest, lowest, total_volume, total_limit, 
+    id, code, name, opening, yesterday_close, highest, lowest, total_volume, total_limit, 
     buy_one_volume, buy_two_volume, buy_three_volume, buy_four_volume, buy_five_volume, 
     buy_one_price, buy_two_price, buy_three_price, buy_four_price, buy_five_price, sell_one_volume, 
     sell_two_volume, sell_three_volume, sell_four_volume, sell_five_volume, sell_one_price, 
-    sell_two_price, sell_three_price, sell_four_price, sell_five_price, time, create_date
+    sell_two_price, sell_three_price, sell_four_price, sell_five_price, date, time, create_date
   </sql>
   <select id="selectByExample" parameterType="com.smalltomato.bean.StockExample" resultMap="BaseResultMap">
     select
@@ -114,19 +114,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="com.smalltomato.bean.StockKey" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from stock
-    where code = #{code,jdbcType=VARCHAR}
-      and date = #{date,jdbcType=VARCHAR}
-      and id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.smalltomato.bean.StockKey">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from stock
-    where code = #{code,jdbcType=VARCHAR}
-      and date = #{date,jdbcType=VARCHAR}
-      and id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.smalltomato.bean.StockExample">
     delete from stock
@@ -135,40 +131,37 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.smalltomato.bean.Stock">
-    insert into stock (code, date, id, 
-      name, opening, yesterday_close, 
-      highest, lowest, total_volume, 
-      total_limit, buy_one_volume, buy_two_volume, 
-      buy_three_volume, buy_four_volume, buy_five_volume, 
-      buy_one_price, buy_two_price, buy_three_price, 
-      buy_four_price, buy_five_price, sell_one_volume, 
-      sell_two_volume, sell_three_volume, sell_four_volume, 
-      sell_five_volume, sell_one_price, sell_two_price, 
-      sell_three_price, sell_four_price, sell_five_price, 
+    insert into stock (id, code, name, 
+      opening, yesterday_close, highest, 
+      lowest, total_volume, total_limit, 
+      buy_one_volume, buy_two_volume, buy_three_volume, 
+      buy_four_volume, buy_five_volume, buy_one_price, 
+      buy_two_price, buy_three_price, buy_four_price, 
+      buy_five_price, sell_one_volume, sell_two_volume, 
+      sell_three_volume, sell_four_volume, sell_five_volume, 
+      sell_one_price, sell_two_price, sell_three_price, 
+      sell_four_price, sell_five_price, date, 
       time, create_date)
-    values (#{code,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{opening,jdbcType=VARCHAR}, #{yesterdayClose,jdbcType=VARCHAR}, 
-      #{highest,jdbcType=VARCHAR}, #{lowest,jdbcType=VARCHAR}, #{totalVolume,jdbcType=VARCHAR}, 
-      #{totalLimit,jdbcType=VARCHAR}, #{buyOneVolume,jdbcType=VARCHAR}, #{buyTwoVolume,jdbcType=VARCHAR}, 
-      #{buyThreeVolume,jdbcType=VARCHAR}, #{buyFourVolume,jdbcType=VARCHAR}, #{buyFiveVolume,jdbcType=VARCHAR}, 
-      #{buyOnePrice,jdbcType=VARCHAR}, #{buyTwoPrice,jdbcType=VARCHAR}, #{buyThreePrice,jdbcType=VARCHAR}, 
-      #{buyFourPrice,jdbcType=VARCHAR}, #{buyFivePrice,jdbcType=VARCHAR}, #{sellOneVolume,jdbcType=VARCHAR}, 
-      #{sellTwoVolume,jdbcType=VARCHAR}, #{sellThreeVolume,jdbcType=VARCHAR}, #{sellFourVolume,jdbcType=VARCHAR}, 
-      #{sellFiveVolume,jdbcType=VARCHAR}, #{sellOnePrice,jdbcType=VARCHAR}, #{sellTwoPrice,jdbcType=VARCHAR}, 
-      #{sellThreePrice,jdbcType=VARCHAR}, #{sellFourPrice,jdbcType=VARCHAR}, #{sellFivePrice,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{opening,jdbcType=VARCHAR}, #{yesterdayClose,jdbcType=VARCHAR}, #{highest,jdbcType=VARCHAR}, 
+      #{lowest,jdbcType=VARCHAR}, #{totalVolume,jdbcType=VARCHAR}, #{totalLimit,jdbcType=VARCHAR}, 
+      #{buyOneVolume,jdbcType=VARCHAR}, #{buyTwoVolume,jdbcType=VARCHAR}, #{buyThreeVolume,jdbcType=VARCHAR}, 
+      #{buyFourVolume,jdbcType=VARCHAR}, #{buyFiveVolume,jdbcType=VARCHAR}, #{buyOnePrice,jdbcType=VARCHAR}, 
+      #{buyTwoPrice,jdbcType=VARCHAR}, #{buyThreePrice,jdbcType=VARCHAR}, #{buyFourPrice,jdbcType=VARCHAR}, 
+      #{buyFivePrice,jdbcType=VARCHAR}, #{sellOneVolume,jdbcType=VARCHAR}, #{sellTwoVolume,jdbcType=VARCHAR}, 
+      #{sellThreeVolume,jdbcType=VARCHAR}, #{sellFourVolume,jdbcType=VARCHAR}, #{sellFiveVolume,jdbcType=VARCHAR}, 
+      #{sellOnePrice,jdbcType=VARCHAR}, #{sellTwoPrice,jdbcType=VARCHAR}, #{sellThreePrice,jdbcType=VARCHAR}, 
+      #{sellFourPrice,jdbcType=VARCHAR}, #{sellFivePrice,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
       #{time,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.smalltomato.bean.Stock">
     insert into stock
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        code,
-      </if>
-      <if test="date != null">
-        date,
-      </if>
       <if test="id != null">
         id,
+      </if>
+      <if test="code != null">
+        code,
       </if>
       <if test="name != null">
         name,
@@ -251,6 +244,9 @@
       <if test="sellFivePrice != null">
         sell_five_price,
       </if>
+      <if test="date != null">
+        date,
+      </if>
       <if test="time != null">
         time,
       </if>
@@ -259,14 +255,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="date != null">
-        #{date,jdbcType=VARCHAR},
-      </if>
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -349,6 +342,9 @@
       <if test="sellFivePrice != null">
         #{sellFivePrice,jdbcType=VARCHAR},
       </if>
+      <if test="date != null">
+        #{date,jdbcType=VARCHAR},
+      </if>
       <if test="time != null">
         #{time,jdbcType=VARCHAR},
       </if>
@@ -366,14 +362,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update stock
     <set>
-      <if test="record.code != null">
-        code = #{record.code,jdbcType=VARCHAR},
-      </if>
-      <if test="record.date != null">
-        date = #{record.date,jdbcType=VARCHAR},
-      </if>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
@@ -456,6 +449,9 @@
       <if test="record.sellFivePrice != null">
         sell_five_price = #{record.sellFivePrice,jdbcType=VARCHAR},
       </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
       <if test="record.time != null">
         time = #{record.time,jdbcType=VARCHAR},
       </if>
@@ -469,9 +465,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update stock
-    set code = #{record.code,jdbcType=VARCHAR},
-      date = #{record.date,jdbcType=VARCHAR},
-      id = #{record.id,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       opening = #{record.opening,jdbcType=VARCHAR},
       yesterday_close = #{record.yesterdayClose,jdbcType=VARCHAR},
@@ -499,6 +494,7 @@
       sell_three_price = #{record.sellThreePrice,jdbcType=VARCHAR},
       sell_four_price = #{record.sellFourPrice,jdbcType=VARCHAR},
       sell_five_price = #{record.sellFivePrice,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
       time = #{record.time,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -508,6 +504,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.smalltomato.bean.Stock">
     update stock
     <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -589,6 +588,9 @@
       <if test="sellFivePrice != null">
         sell_five_price = #{sellFivePrice,jdbcType=VARCHAR},
       </if>
+      <if test="date != null">
+        date = #{date,jdbcType=VARCHAR},
+      </if>
       <if test="time != null">
         time = #{time,jdbcType=VARCHAR},
       </if>
@@ -596,13 +598,12 @@
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where code = #{code,jdbcType=VARCHAR}
-      and date = #{date,jdbcType=VARCHAR}
-      and id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.smalltomato.bean.Stock">
     update stock
-    set name = #{name,jdbcType=VARCHAR},
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       opening = #{opening,jdbcType=VARCHAR},
       yesterday_close = #{yesterdayClose,jdbcType=VARCHAR},
       highest = #{highest,jdbcType=VARCHAR},
@@ -629,10 +630,9 @@
       sell_three_price = #{sellThreePrice,jdbcType=VARCHAR},
       sell_four_price = #{sellFourPrice,jdbcType=VARCHAR},
       sell_five_price = #{sellFivePrice,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
       time = #{time,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP}
-    where code = #{code,jdbcType=VARCHAR}
-      and date = #{date,jdbcType=VARCHAR}
-      and id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

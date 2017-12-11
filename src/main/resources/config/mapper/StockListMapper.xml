@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smalltomato.dao.StockListMapper">
   <resultMap id="BaseResultMap" type="com.smalltomato.bean.StockList">
-    <id column="stock_code" jdbcType="VARCHAR" property="stockCode" />
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="stock_code" jdbcType="VARCHAR" property="stockCode" />
     <result column="stock_name" jdbcType="VARCHAR" property="stockName" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    stock_code, id, stock_name
+    id, stock_code, stock_name
   </sql>
   <select id="selectByExample" parameterType="com.smalltomato.bean.StockListExample" resultMap="BaseResultMap">
     select
@@ -81,17 +81,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="com.smalltomato.bean.StockListKey" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from stock_list
-    where stock_code = #{stockCode,jdbcType=VARCHAR}
-      and id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.smalltomato.bean.StockListKey">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from stock_list
-    where stock_code = #{stockCode,jdbcType=VARCHAR}
-      and id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.smalltomato.bean.StockListExample">
     delete from stock_list
@@ -100,30 +98,30 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.smalltomato.bean.StockList">
-    insert into stock_list (stock_code, id, stock_name
+    insert into stock_list (id, stock_code, stock_name
       )
-    values (#{stockCode,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{stockName,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.smalltomato.bean.StockList">
     insert into stock_list
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="stockCode != null">
-        stock_code,
-      </if>
       <if test="id != null">
         id,
+      </if>
+      <if test="stockCode != null">
+        stock_code,
       </if>
       <if test="stockName != null">
         stock_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="stockCode != null">
-        #{stockCode,jdbcType=VARCHAR},
-      </if>
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null">
+        #{stockCode,jdbcType=VARCHAR},
       </if>
       <if test="stockName != null">
         #{stockName,jdbcType=VARCHAR},
@@ -139,11 +137,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update stock_list
     <set>
-      <if test="record.stockCode != null">
-        stock_code = #{record.stockCode,jdbcType=VARCHAR},
-      </if>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null">
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
       </if>
       <if test="record.stockName != null">
         stock_name = #{record.stockName,jdbcType=VARCHAR},
@@ -155,8 +153,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update stock_list
-    set stock_code = #{record.stockCode,jdbcType=VARCHAR},
-      id = #{record.id,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
       stock_name = #{record.stockName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -165,17 +163,19 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.smalltomato.bean.StockList">
     update stock_list
     <set>
+      <if test="stockCode != null">
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
       <if test="stockName != null">
         stock_name = #{stockName,jdbcType=VARCHAR},
       </if>
     </set>
-    where stock_code = #{stockCode,jdbcType=VARCHAR}
-      and id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.smalltomato.bean.StockList">
     update stock_list
-    set stock_name = #{stockName,jdbcType=VARCHAR}
-    where stock_code = #{stockCode,jdbcType=VARCHAR}
-      and id = #{id,jdbcType=INTEGER}
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

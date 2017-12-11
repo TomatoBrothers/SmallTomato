@@ -2,7 +2,11 @@ package com.smalltomato.bean;
 
 import java.util.Date;
 
-public class Stock extends StockKey {
+public class Stock {
+    private Integer id;
+
+    private String code;
+
     private String name;
 
     private String opening;
@@ -57,9 +61,27 @@ public class Stock extends StockKey {
 
     private String sellFivePrice;
 
+    private String date;
+
     private String time;
 
     private Date createDate;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
+    }
 
     public String getName() {
         return name;
@@ -275,6 +297,14 @@ public class Stock extends StockKey {
 
     public void setSellFivePrice(String sellFivePrice) {
         this.sellFivePrice = sellFivePrice == null ? null : sellFivePrice.trim();
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date == null ? null : date.trim();
     }
 
     public String getTime() {
