@@ -9,6 +9,9 @@ import com.smalltomato.service.StockListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author WangShiChong
  * @ Create Time: 2017/12/4/0004 23:43
@@ -22,5 +25,11 @@ public class StockListServiceImpl extends BaseServiceImpl<StockList, StockListEx
 
     public BaseDao<StockList, StockListExample, Integer> getDao() {
         return this.stockListMapper;
+    }
+
+
+    public Set<String> getAllStockCode() {
+        Set<String> allStockCode = stockListMapper.getAllStockCode();
+        return allStockCode == null ? new HashSet<String>() : allStockCode;
     }
 }
